@@ -26,15 +26,12 @@ else
             m = extractBetween(p2,3,7);
             m = str2num(char(m));
             clan2 = clanDict{m};
-            if strcmp(clan1{1},'NONE') || strcmp(clan2{2}, 'NONE')
-                %有任何一个功能域宗族没有注释则比较简述
-                if strcmp(clan1{3}, clan2{3})
-                    s = 0.05;
-                end
+            if strcmp(clan1{1},'NONE') || strcmp(clan2{1}, 'NONE')
+                s = 0;
             else
                 %两个功能域都有宗族注释
                 if strcmp(clan1{1},clan2{1})
-                    s = 0.1;
+                    s = 0.2;
                 end
             end
         end
