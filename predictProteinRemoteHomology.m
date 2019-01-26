@@ -43,7 +43,7 @@ function [family, prob] = predictProteinRemoteHomology(queryProteinFile)
     queryPsepssm=greyPsePssm(p,2);
     % 2. functional domain set index
     dist_DSI = zeros(qlen,tlen);
-    queryFams = buildFunctionDomainVect(queryProteinFile);
+    queryFams = buildFunctionDomainSet(queryProteinFile);
     for i = 1 : qlen
         for j = 1 : tlen
             dist_DSI = pfamcmp(queryFams{i},pfams{j},clanDict);

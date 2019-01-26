@@ -1,4 +1,4 @@
-function pfams = buildFunctionDomainVect(dataFile)
+function pfams = buildFunctionDomainSet(dataFile)
 	% load mapObj
 	load('uniprot_seqs_dict.mat')
 	
