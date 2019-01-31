@@ -46,14 +46,14 @@ function [family, prob] = predictProteinRemoteHomology(queryProteinFile)
     queryFams = buildFunctionDomainSet(queryProteinFile);
     for i = 1 : qlen
         for j = 1 : tlen
-            dist_DSI(i,j) = pfamcmp(queryFams{i},pfams{j},clanDict);
+            dist_DSI = pfamcmp(queryFams{i},pfams{j},clanDict);
         end
     end
     
     % 3. merge distance of grey incidence alansys and domain set index
     for i = 1 : qlen
         dist_GIA = GreyIncidenceDegree(queryPsepssm(i,:),psepssm);
-        dist = (dist_GIA + dist_DSI(i,:))/2;
+        dist = dist_GIA + dist_DSI(i,:);
         [B,I] = sort(dist,'descend');
         family{i} = familyId(I(1));
         prob{i} = B(I(1));
