@@ -2,11 +2,13 @@ function pfams = buildFunctionDomainSet(dataFile)
 	% load mapObj
 	load('uniprot_seqs_dict.mat')
 	
-    [dheads,dseqs] = fastaread(dataFile);    
+    [dheads,dseqs] = fastaread(dataFile); 
+    disp(length(dheads));
     pfams = cell(1,length(dheads));
     
     hmmscanCMD = 'hmmscan -o out.txt --tblout fmout.tbl --acc --noali Pfam-A.hmm input.fasta';
     for i = 1 : length(dheads)
+        i
         pfam = [];
         h = getHomoProteinsByHMM(dheads{i},dseqs{i});
         if isempty(h)
