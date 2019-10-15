@@ -12,7 +12,7 @@ function homoProteins=getHomoProteinsByHMM(head, seq)
     %    delete('input.out');
     %end
     
-    fastawrite('input.fasta',head,seq);
+    fastawrite('input.fasta',head,upper(seq));
     [~,~] = system(hmmbuildCMD);
     [~,~] = system(hmmsearchCMD);%output homology proteins
     

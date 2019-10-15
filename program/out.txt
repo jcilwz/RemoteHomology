@@ -1,0 +1,81 @@
+# hmmscan :: search sequence(s) against a profile database
+# HMMER 3.1b2 (February 2015); http://hmmer.org/
+# Copyright (C) 2015 Howard Hughes Medical Institute.
+# Freely distributed under the GNU General Public License (GPLv3).
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# query sequence file:             input.fasta
+# target HMM database:             Pfam-A.hmm
+# output directed to file:         out.txt
+# per-seq hits tabular output:     fmout.tbl
+# prefer accessions over names:    yes
+# show alignments in output:       no
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Query:       sp|Q9PU47|PDLI3_CHICK  [L=315]
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model      Description
+    ------- ------ -----    ------- ------ -----   ---- --  --------   -----------
+    5.2e-24   85.2   0.6    9.4e-24   84.4   0.6    1.4  1  PF15936.5   Domain of unknown function (DUF4749)
+    8.6e-17   61.3   0.0    1.7e-16   60.3   0.0    1.5  1  PF00595.24  PDZ domain
+    1.1e-13   51.2   3.1    1.6e-13   50.6   3.1    1.3  1  PF00412.22  LIM domain
+    1.9e-10   40.4   0.0    3.7e-10   39.5   0.0    1.5  1  PF17820.1   PDZ domain
+    0.00064   20.0   0.0     0.0011   19.2   0.0    1.4  1  PF13180.6   PDZ domain
+  ------ inclusion threshold ------
+      0.087   13.2   2.2        0.2   12.1   2.2    1.6  1  PF14354.6   Restriction alleviation protein Lar
+        1.3    8.7   4.3        6.3    6.6   0.7    2.4  2  PF11781.8   Zinc-finger of RNA-polymerase I-specific TFIIB, R
+
+
+Domain annotation for each model:
+>> PF15936.5  Domain of unknown function (DUF4749)
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   84.4   0.6   3.7e-27   9.4e-24       1      87 [.     137     216 ..     137     224 .. 0.87
+
+>> PF00595.24  PDZ domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   60.3   0.0   6.5e-20   1.7e-16       8      81 ..       9      80 ..       3      81 .. 0.93
+
+>> PF00412.22  LIM domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   50.6   3.1   6.4e-17   1.6e-13       1      53 [.     245     295 ..     245     300 .. 0.92
+
+>> PF17820.1  PDZ domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   39.5   0.0   1.4e-13   3.7e-10       2      56 .]      29      82 ..      28      82 .. 0.95
+
+>> PF13180.6  PDZ domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   19.2   0.0   4.4e-07    0.0011      16      74 ..      27      85 ..      17     105 .. 0.85
+
+>> PF14354.6  Restriction alleviation protein Lar
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 ?   12.1   2.2   7.6e-05       0.2       3      54 ..     242     296 ..     240     299 .. 0.62
+
+>> PF11781.8  Zinc-finger of RNA-polymerase I-specific TFIIB, Rrn7
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 ?    3.1   0.1      0.03        77       3      12 ..     241     250 ..     239     254 .. 0.86
+   2 ?    6.6   0.7    0.0025       6.3       5      24 ..     269     292 ..     269     294 .. 0.94
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (315 residues searched)
+Target model(s):                       17929  (3037991 nodes)
+Passed MSV filter:                       624  (0.0348039); expected 358.6 (0.02)
+Passed bias filter:                      490  (0.02733); expected 358.6 (0.02)
+Passed Vit filter:                        43  (0.00239835); expected 17.9 (0.001)
+Passed Fwd filter:                         7  (0.000390429); expected 0.2 (1e-05)
+Initial search space (Z):              17929  [actual number of targets]
+Domain search space  (domZ):               7  [number of targets reported over threshold]
+# CPU time: 0.64u 0.23s 00:00:00.87 Elapsed: 00:00:00.71
+# Mc/sec: 1342.17
+//
+[ok]
