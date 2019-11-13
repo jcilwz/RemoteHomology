@@ -3,6 +3,9 @@ program/Pfam-A.*
 program/uniprot_seqs_dict.mat
 program/input.*
 program/pssmresult
+program/*.fa
+program/*.fasta
+program/*.mat
 # websrc
 websrc/*
 
