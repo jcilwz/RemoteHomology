@@ -12,6 +12,12 @@ Created on Wed Nov 13 09:59:18 2019
 
 from util import PfamClan
 import scipy.io as sio
+
+"""
+计算测试集每个样本与训练集样本的pfam集合距离
+2019-11-14
+"""
+"""
 clanDict = {}
 
 with open('Pfam-A.clans.tsv','r',encoding='utf-8') as fo:
@@ -45,4 +51,8 @@ for k1 in testkeys[3:]:
         n = n + 1
     pfam_dist[k1] = dist
     count = count + 1
-        
+"""
+
+"""
+基于PSSM矩阵计算测试集每个样本与训练集的灰色关联度
+"""       
