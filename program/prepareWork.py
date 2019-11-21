@@ -74,6 +74,7 @@ sio.savemat('independent_psePssmAAC.mat',psePssmAAC)
 """
 读入训练集家族类别
 """
+"""
 from Bio import SeqIO
 import os
 import scipy.io as sio 
@@ -98,16 +99,25 @@ for record in train_records:
                 fam.append(name)
     family[str(k)] = fam    
     print("\n        {}/{}==>{:.2f}%".format(k, totalTrain, k/totalTrain * 100),end="")        
-sio.savemat('train_family.mat',family)  
+sio.savemat('train_family.mat',family) 
+"""
+ 
 """
 计算序列greyPseAAC
 """
-"""
 from SeqFormulate import greyPseAAC
 from Bio import SeqIO
-import scipy.io as sio
+import numpy as np
 trainFile = 'SCOP167_pos_train.fa'
+codeTypes = ['MolecularWeight','Hydrophobicity','PK1','PK2','PI']
+PseAAC = []
+k = 1
+totalTrain = 145187
 for seq_record in SeqIO.parse(trainFile,'fasta'):
-"""   
-    
+     PseAAC.append(greyPseAAC(str(seq_record.seq),codeTypes)) 
+     print("\r{}/{}==>{:.2f}%".format(k, totalTrain, k/totalTrain * 100),end="")
+     k += 1
+pseAAC = np.array(PseAAC)
+with open('trainPseAAC.npy','wb') as f:
+    np.save(f, pseAAC)    
     
