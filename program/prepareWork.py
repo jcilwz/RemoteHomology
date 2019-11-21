@@ -9,15 +9,13 @@ Created on Wed Nov 13 09:59:18 2019
  形如：PF00001	CL0192	GPCR_A	7tm_1	7 transmembrane receptor (rhodopsin family)
  构建一个字典，key是Pfam的编号，后面clan的ID，name，abb和描述作为一个结构体PfamClan
 """
-
-from util import PfamClan
-import scipy.io as sio
-
 """
 计算测试集每个样本与训练集样本的pfam集合距离
 2019-11-14
 """
 """
+from util import PfamClan
+import scipy.io as sio
 clanDict = {}
 
 with open('Pfam-A.clans.tsv','r',encoding='utf-8') as fo:
@@ -55,4 +53,61 @@ for k1 in testkeys[3:]:
 
 """
 基于PSSM矩阵计算测试集每个样本与训练集的灰色关联度
-"""       
+"""  
+"""     
+from util import readPSSMFromFile
+from greymodel import greyPsePSSM
+import os
+import numpy as np
+import scipy.io as sio
+dirname = r'E:\Repoes\jcilwz\RemoteHomology\program\scope_independent_PSSM'
+files = os.listdir(dirname)
+psePssmAAC = {}
+for file in files:
+    pid = file[:-4]
+    path = os.path.join(dirname, file)
+    pssm = readPSSMFromFile(path)
+    psePssmAAC[file[:-4]] = greyPsePSSM(np.array(pssm,dtype=np.float), model=2)
+sio.savemat('independent_psePssmAAC.mat',psePssmAAC)
+"""
+
+"""
+读入训练集家族类别
+"""
+from Bio import SeqIO
+import os
+import scipy.io as sio 
+files = os.listdir('SCOP167-superfamily')
+posFiles = []
+for file in files:
+    if file.startswith('pos-train'):
+        posFiles.append(file)
+train_records = list(SeqIO.parse('SCOP167_pos_train.fa','fasta'))
+family = {}
+
+k = 0
+totalTrain = 145187
+for record in train_records:
+    fam = []
+    k = k + 1
+    for file in posFiles:
+        name = file[10:-6]
+        path = os.path.join('SCOP167-superfamily',file)
+        for r in SeqIO.parse(path,'fasta'):
+            if str(record.seq) == str(r.seq):
+                fam.append(name)
+    family[str(k)] = fam    
+    print("\n        {}/{}==>{:.2f}%".format(k, totalTrain, k/totalTrain * 100),end="")        
+sio.savemat('train_family.mat',family)  
+"""
+计算序列greyPseAAC
+"""
+"""
+from SeqFormulate import greyPseAAC
+from Bio import SeqIO
+import scipy.io as sio
+trainFile = 'SCOP167_pos_train.fa'
+for seq_record in SeqIO.parse(trainFile,'fasta'):
+"""   
+    
+    
