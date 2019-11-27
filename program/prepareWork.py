@@ -83,20 +83,24 @@ for file in files:
     if file.startswith('pos-train'):
         posFiles.append(file)
 train_records = list(SeqIO.parse('SCOP167_pos_train.fa','fasta'))
-family = {}
-
+#family = {}
+family = sio.loadmat('train_family_15000.mat')
 k = 0
 totalTrain = 145187
 for record in train_records:
     fam = []
     k = k + 1
+    if k <= 15000:
+        continue
     for file in posFiles:
         name = file[10:-6]
         path = os.path.join('SCOP167-superfamily',file)
         for r in SeqIO.parse(path,'fasta'):
             if str(record.seq) == str(r.seq):
                 fam.append(name)
-    family[str(k)] = fam    
+    family[str(k)] = fam
+    if k%5000 == 0:
+        sio.savemat("".join(['train_family_', str(k), '.mat']),family)
     print("\n        {}/{}==>{:.2f}%".format(k, totalTrain, k/totalTrain * 100),end="")        
 sio.savemat('train_family.mat',family)  
 """
