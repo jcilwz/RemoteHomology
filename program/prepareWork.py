@@ -104,14 +104,47 @@ for record in train_records:
     print("\n        {}/{}==>{:.2f}%".format(k, totalTrain, k/totalTrain * 100),end="")        
 sio.savemat('train_family.mat',family)  
 """
-计算序列greyPseAAC
-"""
+计算序列SCOP167 Dataset greyPseAAC
 """
 from SeqFormulate import greyPseAAC
 from Bio import SeqIO
 import scipy.io as sio
 trainFile = 'SCOP167_pos_train.fa'
+for seq_record in SeqIO.parse(trainFile,'fasta'):  
+     PseAAC.append(greyPseAAC(str(seq_record.seq),codeTypes)) 
+     print("\r{}/{}==>{:.2f}%".format(k, totalTrain, k/totalTrain * 100),end="")
+     k += 1
+train_pseAAC = np.array(PseAAC)
+with open('trainPseAAC.npy','wb') as f:
+    np.save(f, train_pseAAC)  
+
+# testing data
+testFile = 'scope_independent.fa'
+#codeTypes = ['MolecularWeight','Hydrophobicity','PK1','PK2','PI']
+PseAAC = []
+k = 1
+for seq_record in SeqIO.parse(testFile,'fasta'):
+     PseAAC.append(greyPseAAC(str(seq_record.seq),codeTypes))
+test_pseAAC = np.array(PseAAC)
+with open('testPseAAC.npy','wb') as f:
+    np.save(f, test_pseAAC)  
+
+"""
+calculate 7329 dataset greyPseAAC GM(1,1)
+"""
+from SeqFormulate import greyPseAAC
+from Bio import SeqIO
+import numpy as np
+trainFile = '7329seqs.fasta'
+codeTypes = ['MolecularWeight','Hydrophobicity','PK1','PK2','PI']
+PseAAC = []
+k = 1
+totalTrain = 7329
 for seq_record in SeqIO.parse(trainFile,'fasta'):
-"""   
-    
-    
+     PseAAC.append(greyPseAAC(str(seq_record.seq),codeTypes)) 
+     print("\r{}/{}==>{:.2f}%".format(k, totalTrain, k/totalTrain * 100),end="")
+     k += 1
+train_pseAAC = np.array(PseAAC)
+with open('trainPseAAC_7329.npy','wb') as f:
+    np.save(f, train_pseAAC)  
+
