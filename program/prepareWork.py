@@ -77,14 +77,15 @@ sio.savemat('independent_psePssmAAC.mat',psePssmAAC)
 from Bio import SeqIO
 import os
 import scipy.io as sio 
+import numpy as np
+
 files = os.listdir('SCOP167-superfamily')
 posFiles = []
 for file in files:
     if file.startswith('pos-train'):
         posFiles.append(file)
 train_records = list(SeqIO.parse('SCOP167_pos_train.fa','fasta'))
-#family = {}
-family = sio.loadmat('train_family_15000.mat')
+family = {}
 k = 0
 totalTrain = 145187
 for record in train_records:
@@ -110,6 +111,8 @@ from SeqFormulate import greyPseAAC
 from Bio import SeqIO
 import scipy.io as sio
 trainFile = 'SCOP167_pos_train.fa'
+codeTypes = ['MolecularWeight','Hydrophobicity','PK1','PK2','PI']
+PseAAC = []
 for seq_record in SeqIO.parse(trainFile,'fasta'):  
      PseAAC.append(greyPseAAC(str(seq_record.seq),codeTypes)) 
      print("\r{}/{}==>{:.2f}%".format(k, totalTrain, k/totalTrain * 100),end="")
@@ -120,7 +123,7 @@ with open('trainPseAAC.npy','wb') as f:
 
 # testing data
 testFile = 'scope_independent.fa'
-#codeTypes = ['MolecularWeight','Hydrophobicity','PK1','PK2','PI']
+codeTypes = ['MolecularWeight','Hydrophobicity','PK1','PK2','PI']
 PseAAC = []
 k = 1
 for seq_record in SeqIO.parse(testFile,'fasta'):
