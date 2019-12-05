@@ -38,7 +38,7 @@ eucl_dist = np.zeros((num_test, num_train))
 
 print("calculating euclidean distance between test samples and train samples......")
 for i  in range(num_test):
-    print("\r{}/{}==>{:.2f%}".format(i, num_test, i/num_test))
+    print("\r{}/{}==>{:.2%}".format(i, num_test, i/num_test), end="")
     for j in range(num_train):
         eucl_dist[i,j] = np.linalg.norm(test_pseAAC[i] - train_pseAAC[j])
         
@@ -60,7 +60,7 @@ for i in range(num_test):
 
     if familymat[str(indx_arr[1])][0] == faml:
         count += 1
-    print("\r{}/{}==>{:.2f%}".format(i, num_test, i/num_test))
-print("predicted result: in {0} samples corrected predict {1}: {2:.2%}".format(7329,count,count/7329))    
+    print("\r{}/{}==>{:.2%}".format(i, num_test, i/num_test), end="")
+print("predicted result: in {0} samples corrected predict {1}: {2:.2%}".format(num_test,count,count/num_test))    
 
 
