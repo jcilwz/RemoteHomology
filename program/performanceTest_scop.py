@@ -50,7 +50,7 @@ with open('scope_test_train_euclidean_weight_distance.npy','wb') as f:
     
 # jack knife test   
 familymat = sci.loadmat('train_family.mat')
-w = [1, 1]
+w = [1, 5]
 count = 0
 print("calculating prediction accuracy......")  
 for i in range(num_test):
