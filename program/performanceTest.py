@@ -36,29 +36,33 @@ train_pseAAC = np.load('trainPseAAC.npy')
 num_train = 145187
 eucl_dist = np.zeros((num_test, num_train))
 
+weight = np.ones((30,))
+weight[20:30:2] = 40
+weight[21:30:2] = 0.1
 print("calculating euclidean distance between test samples and train samples......")
 for i  in range(num_test):
     print("\r{}/{}==>{:.2%}".format(i, num_test, i/num_test), end="")
     for j in range(num_train):
-        eucl_dist[i,j] = np.linalg.norm(test_pseAAC[i] - train_pseAAC[j])
+        eucl_dist[i,j] = np.linalg.norm(test_pseAAC[i] * weight- train_pseAAC[j] * weight)
         
-with open('scope_test_train_euclidean_distance.npy','wb') as f:
+with open('scope_test_train_euclidean_weight_distance.npy','wb') as f:
     np.save(f, eucl_dist)
     
 # jack knife test   
-w = [0.5, 0.5]
-count = 0
 familymat = sci.loadmat('train_family.mat')
-
+w = [1, 1]
+count = 0
 print("calculating prediction accuracy......")  
 for i in range(num_test):
-    d = (1-pfm_dist[i]) * w[0] + eucl_dist[i] * w[1]
-    indx_arr = np.argsort(d)
     seq = test_records[i]
-    desc = seq.descriptioin
-    faml = (desc.split(" "))[1]
+    desc = seq.description
+    head = desc.split(" ")
+    sid = head[0]
+    faml = head[1]
+    d = (1-pfm_dist[sid][0]) * w[0] + eucl_dist[i] * w[1]
+    indx_arr = np.argsort(d)   
 
-    if familymat[str(indx_arr[1])][0] == faml:
+    if familymat[str(indx_arr[0]+1)][0] == faml:
         count += 1
     print("\r{}/{}==>{:.2%}".format(i, num_test, i/num_test), end="")
 print("predicted result: in {0} samples corrected predict {1}: {2:.2%}".format(num_test,count,count/num_test))    
